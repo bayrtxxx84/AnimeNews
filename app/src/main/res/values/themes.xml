@@ -1,0 +1,54 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+
+    <style name="AnimeNewsTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/red_login</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="colorAccent">@color/red_login</item>
+        <item name="colorControlNormal">@color/purple_700</item>
+        <item name="colorControlActivated">@color/red_login</item>
+        <item name="colorControlHighlight">@color/purple_700</item>
+    </style>
+
+    <style name="RoundedCorners30">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSizeTopLeft">30dp</item>
+        <item name="cornerSizeBottomLeft">30dp</item>
+        <item name="cornerSizeTopRight">30dp</item>
+        <item name="cornerSizeBottomRight">30dp</item>
+    </style>
+
+    <style name="ButtonsAnimeApp" parent="RoundedCorners30">
+        <item name="android:backgroundTint">@color/red_login</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextInputLayoutAnimeApp">
+        <item name="errorIconDrawable">@null</item>
+        <item name="endIconTint">@color/design_icon_tint</item>
+        <item name="hintTextColor">@color/red_login</item>
+        <item name="android:textColorHint">@color/red_login</item>
+        <item name="errorTextColor">@null</item>
+        <item name="helperTextTextColor">@null</item>
+        <item name="boxBackgroundMode">filled</item>
+    </style>
+
+    <style name="TextEditAnimeApp" parent="RoundedCorners30">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="android:height">64dp</item>
+    </style>
+
+
+</resources>
