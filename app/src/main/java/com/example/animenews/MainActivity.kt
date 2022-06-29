@@ -1,15 +1,19 @@
 package com.example.animenews
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.animation.DecelerateInterpolator
 import android.widget.ArrayAdapter
-import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.animenews.databinding.ActivityMainBinding
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,49 +24,38 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val array = listOf<String>(
-            "Api 1", "Api 2", "Api 3", "Api 4", "Api 5", "Api 6", "Api 7", "Api 8", "Api 9",
-            "Api 11", "Api 12", "Api 13", "Api 14", "Api 15", "Api 16", "Api 17", "Api 18"
-        )
-        var adapter: ArrayAdapter<String> = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1,
-            array
-        )
+        lifecycleScope.launch(Dispatchers.Main) {
+            delay(5000)
+            var arrayItems = withContext(Dispatchers.IO) { APICall().returnItems() }
+            var listRV = binding.listRV
+            val adapterRv = NewsItemAdapter(arrayItems) {
+                manageItemClick(it)
+            }
+            listRV.adapter = adapterRv
+            listRV.layoutManager = LinearLayoutManager(
+                baseContext,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
+            binding.shimerRv.visibility = View.GONE
+        }
 
-        val arrayItems = listOf<ItemDataClass>(
-            ItemDataClass(1, R.drawable.arturos, "Arturos"),
-            ItemDataClass(2, R.drawable.foodpanda, "FootPanda"),
-            ItemDataClass(3, R.drawable.swiggy, "Swiggy"),
-            ItemDataClass(4, R.drawable.uber, "Uber"),
-            ItemDataClass(5, R.drawable.yelp, "Yelp"),
-            ItemDataClass(6, R.drawable.zomato, "Zomato")
-        )
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        // Funciones lambda
+        fun suma(a: Int, b: Int): Int {
+            return a + b
+        }
 
-        var listRV = binding.listRV
-        val adapterRv = NewsItemAdapter(arrayItems) { manageClickItem(it) }
-        listRV.adapter = adapterRv
-        listRV.layoutManager = LinearLayoutManager(
-            this,
-            LinearLayoutManager.VERTICAL,
-            false
-        )
-        binding.shimmerLayout.visibility = View.GONE
-        binding.progressBar.visibility = View.GONE
+        val suma = { a: Int, b: Int -> a + b }
+        fun calc(a: Int, b: Int, myfun: (a: Int, b: Int) -> Int) {
+            myfun(a, b)
+        }
+        calc(4, 5) { a: Int, b: Int -> a + b }
     }
 
-    private fun manageClickItem(item: ItemDataClass) {
-        Toast.makeText(this, item.name, Toast.LENGTH_SHORT).show()
-    }
-
-    fun suma(a: Int, b: Int): Int {
-        return a + b
-    }
-
-    val suma = { a: Int, b: Int -> a + b }
-
-    fun calc(a: Int, b: Int, myFun: (Int, Int) -> Int): Int {
-        return myFun(a, b)
+    fun manageItemClick(item: ItemDataClass) {
+        Toast.makeText(this, "El item que has seleccionado es: ${item.name}", Toast.LENGTH_SHORT)
+            .show()
     }
 
 }

@@ -7,17 +7,6 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintBottom_toBottomOf="@+id/listRV"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
@@ -33,42 +22,44 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmerLayout"
+        android:id="@+id/shimerRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="visible"
         android:layout_marginTop="90dp"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
+                <include layout="@layout/news_items_shimer"/>
+                <include layout="@layout/news_items_shimer"/>
+                <include layout="@layout/news_items_shimer"/>
+                <include layout="@layout/news_items_shimer"/>
+                <include layout="@layout/news_items_shimer"/>
+                <include layout="@layout/news_items_shimer"/>
+                <include layout="@layout/news_items_shimer"/>
+                <include layout="@layout/news_items_shimer"/>
+                <include layout="@layout/news_items_shimer"/>
+                <include layout="@layout/news_items_shimer"/>
+                <include layout="@layout/news_items_shimer"/>
+                <include layout="@layout/news_items_shimer"/>
+                <include layout="@layout/news_items_shimer"/>
+                <include layout="@layout/news_items_shimer"/>
+                <include layout="@layout/news_items_shimer"/>
         </LinearLayout>
+
     </com.facebook.shimmer.ShimmerFrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="90dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation" />
+        android:layout_marginTop="90dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        tools:layout_editor_absoluteX="0dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -81,8 +72,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_bottom_navigation">
-
     </com.google.android.material.bottomnavigation.BottomNavigationView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

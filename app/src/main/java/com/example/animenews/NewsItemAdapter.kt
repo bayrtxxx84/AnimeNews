@@ -8,17 +8,15 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animenews.databinding.NewsItemsRvBinding
 
-class NewsItemAdapter(
-    var dataList: List<ItemDataClass>,
-    val itemClick: (item: ItemDataClass) -> Unit
-) :
+class NewsItemAdapter(var dataList: List<ItemDataClass>,
+                      var itemClick: (item: ItemDataClass) -> Unit) :
     RecyclerView.Adapter<NewsItemAdapter.NewsViewHolder>() {
 
     class NewsViewHolder(item: View) : RecyclerView.ViewHolder(item) {
 
         private var binding: NewsItemsRvBinding = NewsItemsRvBinding.bind(item)
 
-        fun render(item: ItemDataClass, itemClick: (ItemDataClass) -> Unit) {
+        fun render(item: ItemDataClass, itemClick: (item: ItemDataClass) -> Unit) {
             binding.imgAnime.setImageResource(item.photo)
             binding.txtDescAnime.text = item.id.toString()
             binding.txtTitleAnime.text = item.name
@@ -28,7 +26,6 @@ class NewsItemAdapter(
             }
         }
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         var inflater = LayoutInflater.from(parent.context)
