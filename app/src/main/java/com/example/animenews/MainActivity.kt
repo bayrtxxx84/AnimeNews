@@ -1,19 +1,16 @@
 package com.example.animenews
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.animation.AlphaAnimation
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.view.animation.DecelerateInterpolator
-import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.animenews.databinding.ActivityMainBinding
-import kotlinx.coroutines.*
-
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,38 +21,28 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         lifecycleScope.launch(Dispatchers.Main) {
-            delay(5000)
-            var arrayItems = withContext(Dispatchers.IO) { APICall().returnItems() }
-            var listRV = binding.listRV
-            val adapterRv = NewsItemAdapter(arrayItems) {
-                manageItemClick(it)
+            delay(2000)
+            val arrayItems = withContext(Dispatchers.IO) {
+                DataRepository.listAnime()
+
             }
+
+            val listRV = binding.listRV
+            val adapterRv = NewsItemAdapter(arrayItems) { manageClickItem(it) }
             listRV.adapter = adapterRv
             listRV.layoutManager = LinearLayoutManager(
                 baseContext,
                 LinearLayoutManager.VERTICAL,
                 false
             )
-            binding.shimerRv.visibility = View.GONE
+            binding.shimmerLayout.visibility = View.GONE
         }
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        // Funciones lambda
-        fun suma(a: Int, b: Int): Int {
-            return a + b
-        }
-
-        val suma = { a: Int, b: Int -> a + b }
-        fun calc(a: Int, b: Int, myfun: (a: Int, b: Int) -> Int) {
-            myfun(a, b)
-        }
-        calc(4, 5) { a: Int, b: Int -> a + b }
     }
 
-    fun manageItemClick(item: ItemDataClass) {
-        Toast.makeText(this, "El item que has seleccionado es: ${item.name}", Toast.LENGTH_SHORT)
-            .show()
+    private fun manageClickItem(item: AnimeItem) {
+        Toast.makeText(this, item.name, Toast.LENGTH_SHORT).show()
     }
 
 }

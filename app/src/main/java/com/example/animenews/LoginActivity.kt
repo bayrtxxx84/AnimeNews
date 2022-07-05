@@ -22,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun fnLogin() {
+    private fun fnLogin() {
         if ((binding.txtUser.text.toString() == "bayron") &&
             (binding.txtPassword.text.toString() == "torres")
         ) {
