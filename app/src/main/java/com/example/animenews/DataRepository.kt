@@ -1,5 +1,7 @@
 package com.example.animenews
 
+import com.example.animenews.datos.entidades.AnimeItem
+
 object DataRepository {
 
     fun listAnime(): List<AnimeItem> {

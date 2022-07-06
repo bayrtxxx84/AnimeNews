@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animenews.databinding.NewsItemsRvBinding
+import com.example.animenews.datos.entidades.AnimeItem
 import com.squareup.picasso.Picasso
 
 class NewsItemAdapter(
