@@ -17,13 +17,13 @@
         android:theme="@style/AnimeNewsTheme"
         tools:targetApi="31">
         <activity
-            android:name=".ShowItemActivity"
+            android:name=".ui.ShowItemActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

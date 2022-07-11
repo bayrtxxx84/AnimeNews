@@ -1,10 +1,10 @@
-package com.example.animenews.datos.dao
+package com.example.animenews.data.dao
 
 import androidx.room.*
-import com.example.animenews.AnimeItem
+import com.example.animenews.data.entidades.AnimeItem
 
 @Dao
-interface ItemAnimeDAO {
+interface ItemsDAO {
 
     @Query("SELECT * FROM AnimeItem")
     fun getAllItems() : List<AnimeItem>
@@ -12,7 +12,7 @@ interface ItemAnimeDAO {
     @Query("SELECT * FROM AnimeItem WHERE id = :idItem")
     fun getOneItem(idItem: Int) : AnimeItem
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertItem(item : AnimeItem)
 
     @Delete
@@ -20,6 +20,4 @@ interface ItemAnimeDAO {
 
     @Update
     fun updateItem(item : AnimeItem)
-
-
 }

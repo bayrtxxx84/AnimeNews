@@ -1,4 +1,4 @@
-package com.example.animenews
+package com.example.animenews.ui
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity

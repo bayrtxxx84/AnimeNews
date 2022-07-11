@@ -1,18 +1,20 @@
-package com.example.animenews
+package com.example.animenews.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.animenews.R
 import com.example.animenews.databinding.NewsItemsRvBinding
-import com.example.animenews.datos.entidades.AnimeItem
+import com.example.animenews.data.entidades.AnimeItem
 import com.squareup.picasso.Picasso
 
 class NewsItemAdapter(
-    var dataList: List<AnimeItem>,
     private val itemClick: (item: AnimeItem) -> Unit
 ) :
     RecyclerView.Adapter<NewsItemAdapter.NewsViewHolder>() {
+
+    var dataList: List<AnimeItem> = emptyList()
 
     class NewsViewHolder(item: View) : RecyclerView.ViewHolder(item) {
 

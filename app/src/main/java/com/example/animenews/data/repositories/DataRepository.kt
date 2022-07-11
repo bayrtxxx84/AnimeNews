@@ -1,6 +1,6 @@
-package com.example.animenews
+package com.example.animenews.data.repositories
 
-import com.example.animenews.datos.entidades.AnimeItem
+import com.example.animenews.data.entidades.AnimeItem
 
 object DataRepository {
 

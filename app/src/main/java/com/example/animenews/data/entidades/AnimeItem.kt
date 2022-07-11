@@ -1,4 +1,4 @@
-package com.example.animenews.datos.entidades
+package com.example.animenews.data.entidades
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
