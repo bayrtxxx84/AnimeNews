@@ -15,6 +15,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 class MainActivity : AppCompatActivity() {
 
@@ -53,6 +55,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun manageClickItem(item: AnimeItem) {
         val intent = Intent(this, ShowItemActivity::class.java)
+        val itemJson = Json.encodeToString(item)
+        intent.putExtra("item", itemJson)
         startActivity(intent)
     }
 }
