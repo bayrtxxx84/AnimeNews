@@ -1,31 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.ShowItemActivity">
+    tools:context=".ui.activities.ShowItemActivity">
 
     <ImageView
         android:id="@+id/itemPhoto"
         android:layout_width="match_parent"
         android:layout_height="220dp"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/fab_content_desc"
         android:scaleType="centerCrop"
-        android:src="@color/grey"/>
+        android:src="@color/grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/itemTitle"
-        android:textSize="32sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnMostrar"
-        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mostrar"/>
+        android:layout_marginRight="72dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemPhoto" />
 
-</LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnCompartir"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginTop="188dp"
+        android:backgroundTint="@color/white_75"
+        android:contentDescription="@string/fab_content_desc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/itemTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/send_to_mobile_48px" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

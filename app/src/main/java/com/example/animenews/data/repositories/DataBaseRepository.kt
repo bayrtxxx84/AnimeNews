@@ -21,11 +21,10 @@ abstract class DataBaseRepository : RoomDatabase() {
 
 class DataBaseConnection(private val context: Context) {
 
-    val _DBNAME = "animeDataBase"
-        get() = field.toString()
+    val _DBNAME : String = "animeDataBase"
 
     fun getConnection() = Room.databaseBuilder(
-        context!!,
+        context,
         DataBaseRepository::class.java,
         _DBNAME
     ).build()

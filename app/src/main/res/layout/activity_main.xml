@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.activities.MainActivity">
 
 
     <TextView
@@ -17,49 +17,20 @@
         android:text="Top 10 Best Rated Mangas"
         android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/listRV"
+        app:layout_constraintBottom_toTopOf="@+id/fragmentView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmerLayout"
+    <FrameLayout
+        android:id="@+id/fragmentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="90dp"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-        </LinearLayout>
-    </com.facebook.shimmer.ShimmerFrameLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listRV"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible"
         android:layout_marginTop="70dp"
         android:layout_marginBottom="52dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation" />
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
