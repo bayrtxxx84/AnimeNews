@@ -3,14 +3,22 @@
 
     <item
         android:id="@+id/news"
+        android:icon="@drawable/newspaper_48px"
         android:title="Noticias" />
     <item
-        android:id="@+id/search"
-        android:title="Buscar" />
+        android:id="@+id/osmMap"
+        android:icon="@drawable/map_48px"
+        android:title="OSMMap" />
+    <item
+        android:id="@+id/mapBoxMap"
+        android:icon="@drawable/public_48px"
+        android:title="MapBox" />
     <item
         android:id="@+id/favorites"
+        android:icon="@drawable/star_48px"
         android:title="Favoritos" />
     <item
         android:id="@+id/exit"
+        android:icon="@drawable/logout_48px"
         android:title="Salir" />
 </menu>

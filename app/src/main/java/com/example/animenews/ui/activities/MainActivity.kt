@@ -1,24 +1,17 @@
 package com.example.animenews.ui.activities
 
 import android.os.Bundle
-import android.os.Parcelable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.animenews.ui.fragments.OSMMapsFragment
 import com.example.animenews.R
-import com.example.animenews.data.entidades.AnimeItem
-import com.example.animenews.data.repositories.DataRepository
 import com.example.animenews.databinding.ActivityMainBinding
-import com.example.animenews.ui.fragments.ListItemsRVFragment
+import com.example.animenews.ui.fragments.ListItemsFragment
+import com.example.animenews.ui.fragments.MapBoxFragment
 import com.example.animenews.ui.fragments.ShimmerFragment
-import com.example.animenews.utils.AnimeNews
 import com.example.animenews.utils.FunctionsFragments
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import java.io.Serializable
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,34 +23,47 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        lifecycleScope.launch(Dispatchers.Main) {
-
-            fragmFun.ReplaceShimmerFragment(ShimmerFragment(), binding.fragmentView.id)
-
-            delay(2000)
-            val listItems = withContext(Dispatchers.IO) {
-                var items: List<AnimeItem>
-                items = AnimeNews.getDbInstance().animeItem().getAllItems()
-                if (items.isEmpty()) {
-                    for (i in DataRepository.listAnime()) {
-                        AnimeNews.getDbInstance().animeItem().insertItem(i)
-                    }
-                    items = AnimeNews.getDbInstance().animeItem().getAllItems()
+        binding.btnNavigation.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.news -> {
+                    initActivity()
+                    true
                 }
-                return@withContext items
+
+                R.id.osmMap -> {
+                    fragmFun.ReplaceFragment(
+                        OSMMapsFragment(), binding.fragmentView.id,
+                        null, null
+                    )
+                    true
+                }
+
+                R.id.mapBoxMap -> {
+                    fragmFun.ReplaceFragment(
+                        MapBoxFragment(), binding.fragmentView.id,
+                        null, null
+                    )
+                    true
+                }
+
+                else -> false
             }
-
-            val bundle = Bundle()
-            bundle.putSerializable("item", Json.encodeToString(listItems))
-            fragmFun.ReplaceFragment(
-                ListItemsRVFragment(), binding.fragmentView.id,
-                listOf(bundle), null
-            )
-
-            fragmFun.RemoveFragment("shimmer")
-
         }
+
+        initActivity()
+    }
+
+    fun initActivity() {
+        lifecycleScope.launch(Dispatchers.Main) {
+            fragmFun.ReplaceShimmerFragment(ShimmerFragment(), binding.fragmentView.id)
+            delay(2000)
+            fragmFun.RemoveFragment("shimmer")
+            fragmFun.ReplaceFragment(
+                ListItemsFragment(), binding.fragmentView.id,
+                null, null
+            )
+        }
+
     }
 }
 

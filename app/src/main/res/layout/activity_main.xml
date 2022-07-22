@@ -17,23 +17,26 @@
         android:text="Top 10 Best Rated Mangas"
         android:textSize="32sp"
         android:textStyle="bold"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toTopOf="@+id/fragmentView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <FrameLayout
         android:id="@+id/fragmentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="62dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation" />
+        app:layout_constraintBottom_toTopOf="@+id/btnNavigation" />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+        android:id="@+id/btnNavigation"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         app:backgroundTint="@color/purple_700"
@@ -42,7 +45,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_bottom_navigation">
+        app:menu="@menu/bottom_main_menu">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

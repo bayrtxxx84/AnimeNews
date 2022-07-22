@@ -6,5 +6,8 @@
 
     <string name="appName">The news anime app v2</string>
     <string name="fab_content_desc">Icon</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiYmF5cnR4eHgiLCJhIjoiY2w1dTM3YWhrMnhtNDNjcTk0enNna2g3ZSJ9.Amwdq-ZqY_At-IucjL4d8g</string>
 
 </resources>
