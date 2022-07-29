@@ -2,27 +2,48 @@ package com.example.animenews.ui.activities
 
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.RecognizerIntent
-import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.preference.PreferenceManager
-import com.example.animenews.data.entidades.AnimeItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.example.animenews.data.entidades.database.AnimeItem
 import com.example.animenews.databinding.ActivityShowItemBinding
+import com.example.animenews.model.entidades.AnimeItemModel
+import com.example.animenews.model.usercase.AnimeItemsUserCase
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.osmdroid.config.Configuration
 import java.util.*
 
 class ShowItemActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityShowItemBinding
-    private lateinit var item1: AnimeItem
+    private lateinit var newItem: AnimeItemModel
+
+    private val micResp =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == RESULT_OK) {
+                val message =
+                    it.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0)
+
+                if (!message.isNullOrEmpty()) {
+                    val searchIntent = Intent(Intent.ACTION_WEB_SEARCH)
+                    searchIntent.setClassName(
+                        "com.google.android.googlequicksearchbox",
+                        "com.google.android.googlequicksearchbox.SearchActivity"
+                    )
+                    searchIntent.putExtra("query", message)
+                    startActivity(searchIntent)
+                }
+            }
+        }
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,30 +51,13 @@ class ShowItemActivity : AppCompatActivity() {
         binding = ActivityShowItemBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        var idItem = 0
         intent.extras?.let {
-            item1 = Json.decodeFromString(it.get("item").toString()) as AnimeItem
+            val item = Json.decodeFromString(it.get("item").toString()) as AnimeItem
+            idItem = item.id
         }
-
-        ShowInitItem()
-
-        val micResp =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                if (it.resultCode == RESULT_OK) {
-                    val message =
-                        it.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.get(0)
-                    binding.itemTitle.text = message
-
-                    if (!message.isNullOrEmpty()) {
-                        val searchIntent = Intent(Intent.ACTION_WEB_SEARCH)
-                        searchIntent.setClassName(
-                            "com.google.android.googlequicksearchbox",
-                            "com.google.android.googlequicksearchbox.SearchActivity"
-                        )
-                        searchIntent.putExtra("query", message)
-                        startActivity(searchIntent)
-                    }
-                }
-            }
+        showInitItem(idItem)
 
         binding.btnMic.setOnClickListener {
             val speak = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
@@ -66,81 +70,54 @@ class ShowItemActivity : AppCompatActivity() {
                 Locale.getDefault()
             )
             speak.putExtra(RecognizerIntent.EXTRA_PROMPT, "Di algo...")
-
             micResp.launch(speak)
         }
 
-        val respuesta =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                if (it.resultCode == RESULT_OK) {
-                    val message = it.data?.getStringExtra("val")
-                    binding.itemTitle.text = message
-                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-                }
-            }
 
         binding.btnCompartir.setOnClickListener {
-            // ShareItem()
-            // SharePreferences()
-
-            //ActivityForResult
-            respuesta.launch(Intent(this, ResultActivity::class.java))
+            ShareItem()
         }
     }
 
 
     private fun ShareItem() {
-
-        /*
-        Intent explicit
-          var intent = Intent(this, LoginActivity::class.java)
-          intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-          intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-          startActivity(intent)
-
-         Intent View (implicit)
-            val intent = Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse("https://www.tutorialkart.com/")
-            }
-            startActivity(intent)
-
-         Intent Share (implicit)*/
         val sendIntent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, item1.name)
+            putExtra(Intent.EXTRA_TEXT, newItem.url)
             type = "text/plain"
         }
         startActivity(sendIntent)
     }
 
-    private fun ShowInitItem() {
-        Picasso.get().load(item1.photo).into(binding.itemPhoto)
-        binding.itemTitle.text = item1.name
+    private fun showInitItem(idItem: Int) {
+
+        lifecycleScope.launch(Dispatchers.Main) {
+
+            binding.shimmerItem.root.visibility = View.VISIBLE
+            binding.container.visibility = View.GONE
+
+            newItem = withContext(Dispatchers.IO) {
+                AnimeItemsUserCase().getFullAnimeItem(idItem)
+            }
+
+            binding.shimmerItem.root.apply {
+                alpha = 1f
+                visibility = View.GONE
+                animate()
+                    .alpha(0f).duration = 1000L
+            }
+
+            binding.container.apply {
+                alpha = 0f
+                visibility = View.VISIBLE
+                animate()
+                    .alpha(1f).duration = 100L
+            }
+
+            Picasso.get().load(newItem.images?.jpg?.image_url).into(binding.itemPhoto)
+            binding.itemTitle.text = newItem.title
+            binding.itemUrl.text = newItem.url
+            binding.itemDesc.text = newItem.synopsis
+        }
     }
-
-    fun SharePreferences() {
-        val publicShare =
-            applicationContext.getSharedPreferences(
-                "sesiones",
-                Context.MODE_PRIVATE
-            )
-
-        with(publicShare.edit()) {
-            putString("nombre", "Alex")
-            putString("apellido", "Bustamante")
-        }.apply()
-
-        val activityShare = PreferenceManager.getDefaultSharedPreferences(this)
-        with(activityShare.edit()) {
-            putString("nombre", "Bayron")
-            putString("apellido", "Torres")
-        }.apply()
-
-        val a = publicShare.getString("nombre", "Dato inexistente")
-        val b = activityShare.getString("nombre", "Dato inexistente")
-
-        Log.d("UCE", a.toString())
-        Log.d("UCE", b.toString())
-    }
-
 }

@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragments.ShimmerFragment">
+    android:layout_height="match_parent">
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmerLayout"
@@ -20,11 +19,15 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
-            <include layout="@layout/news_items_rv_shrim" />
+            <include layout="@layout/shimmer_news_items_list" />
+
+            <include layout="@layout/shimmer_news_items_list" />
+
+            <include layout="@layout/shimmer_news_items_list" />
+
+            <include layout="@layout/shimmer_news_items_list" />
+
+            <include layout="@layout/shimmer_news_items_list" />
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
 

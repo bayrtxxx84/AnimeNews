@@ -6,12 +6,13 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.animenews.data.dao.ItemsDAO
-import com.example.animenews.data.entidades.AnimeItem
+import com.example.animenews.data.entidades.database.AnimeItem
 
 
 @Database(
     entities = [AnimeItem::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class DataBaseRepository : RoomDatabase() {
 

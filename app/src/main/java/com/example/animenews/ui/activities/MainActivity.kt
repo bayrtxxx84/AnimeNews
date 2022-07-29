@@ -2,16 +2,12 @@ package com.example.animenews.ui.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.example.animenews.ui.fragments.OSMMapsFragment
 import com.example.animenews.R
 import com.example.animenews.databinding.ActivityMainBinding
 import com.example.animenews.ui.fragments.ListItemsFragment
 import com.example.animenews.ui.fragments.MapBoxFragment
-import com.example.animenews.ui.fragments.ShimmerFragment
 import com.example.animenews.utils.FunctionsFragments
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,16 +50,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun initActivity() {
-        lifecycleScope.launch(Dispatchers.Main) {
-            fragmFun.ReplaceShimmerFragment(ShimmerFragment(), binding.fragmentView.id)
-            delay(2000)
-            fragmFun.RemoveFragment("shimmer")
-            fragmFun.ReplaceFragment(
-                ListItemsFragment(), binding.fragmentView.id,
-                null, null
-            )
-        }
-
+        fragmFun.ReplaceFragment(
+            ListItemsFragment(), binding.fragmentView.id,
+            null, null
+        )
     }
-}
 
+}

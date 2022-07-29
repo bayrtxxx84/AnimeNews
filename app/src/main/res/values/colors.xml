@@ -11,4 +11,6 @@
 
     <color name="red_login">#C6432F</color>
     <color name="white_75">#99FFFFFF</color>
+    <color name="white_90">#DDFFFFFF</color>
+    <color name="share">#52b69a</color>
 </resources>

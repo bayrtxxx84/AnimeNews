@@ -1,7 +1,7 @@
 package com.example.animenews.data.dao
 
 import androidx.room.*
-import com.example.animenews.data.entidades.AnimeItem
+import com.example.animenews.data.entidades.database.AnimeItem
 
 @Dao
 interface ItemsDAO {

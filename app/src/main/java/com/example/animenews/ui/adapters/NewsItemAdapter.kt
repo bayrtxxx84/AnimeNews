@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animenews.R
-import com.example.animenews.databinding.NewsItemsRvBinding
-import com.example.animenews.data.entidades.AnimeItem
+import com.example.animenews.data.entidades.database.AnimeItem
+import com.example.animenews.databinding.RvNewsItemsBinding
 import com.squareup.picasso.Picasso
 
 class NewsItemAdapter(
@@ -18,14 +18,13 @@ class NewsItemAdapter(
 
     class NewsViewHolder(item: View) : RecyclerView.ViewHolder(item) {
 
-        private var binding: NewsItemsRvBinding = NewsItemsRvBinding.bind(item)
+        private var binding: RvNewsItemsBinding = RvNewsItemsBinding.bind(item)
 
         fun render(item: AnimeItem, itemClick: (AnimeItem) -> Unit) {
             Picasso.get().load(item.photo).into(binding.imgAnime)
             binding.imgAnime
-            binding.txtDescAnime.text = item.id.toString()
+            binding.txtDescAnime.text = item.description.toString()
             binding.txtTitleAnime.text = item.name
-
             itemView.setOnClickListener() {
                 itemClick(item)
             }
@@ -34,8 +33,8 @@ class NewsItemAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        var inflater = LayoutInflater.from(parent.context)
-        return NewsViewHolder(inflater.inflate(R.layout.news_items_rv, parent, false))
+        val inflater = LayoutInflater.from(parent.context)
+        return NewsViewHolder(inflater.inflate(R.layout.rv_news_items, parent, false))
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
